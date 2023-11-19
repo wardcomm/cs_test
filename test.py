@@ -1,18 +1,17 @@
+import json
+import string
+import random
 from flask import Flask, request, jsonify
-import hashlib
-import time
 
 app = Flask(__name__)
 
-# In-memory storage for short URLs
+# A simple in-memory storage for URL encoding/decoding
 url_mapping = {}
 
-
-def encode_url(url):
-    # Basic encoding using MD5 hash
-    hash_object = hashlib.md5(url.encode())
-    return hash_object.hexdigest()[:6]
-
+def generate_short_url():
+    # Generate a random short URL using uppercase letters and digits
+    characters = string.ascii_uppercase + string.digits
+    return ''.join(random.choice(characters) for _ in range(6))
 
 @app.route('/encode', methods=['POST'])
 def encode():
@@ -22,66 +21,32 @@ def encode():
         return jsonify({'error': 'Missing URL parameter'}), 400
 
     original_url = data['url']
-    short_url = encode_url(original_url)
+    short_url = generate_short_url()
 
-    # Store in-memory
+    # Store the mapping in the in-memory storage
     url_mapping[short_url] = original_url
 
-    return jsonify({'short_url': short_url}), 200
+    response_data = {
+        'original_url': original_url,
+        'short_url': f'http://example.com/{short_url}'  # Replace with your domain
+    }
 
+    return jsonify(response_data)
 
-@app.route('/decode/<string:short_url>', methods=['GET'])
+@app.route('/decode/<short_url>', methods=['GET'])
 def decode(short_url):
+    # Retrieve the original URL from the in-memory storage
     original_url = url_mapping.get(short_url)
 
     if original_url is None:
         return jsonify({'error': 'Short URL not found'}), 404
 
-    return jsonify({'original_url': original_url}), 200
+    response_data = {
+        'short_url': f'http://example.com/{short_url}',  # Replace with your domain
+        'original_url': original_url
+    }
 
-
-# Rate limiting decorator
-def rate_limit(limit, per):
-    def decorator(f):
-        def wrapper(*args, **kwargs):
-            identifier = request.remote_addr
-            current_time = time.time()
-
-            if identifier not in wrapper.access_data:
-                wrapper.access_data[identifier] = {'timestamp': current_time, 'count': 1}
-            else:
-                data = wrapper.access_data[identifier]
-                elapsed_time = current_time - data['timestamp']
-
-                if elapsed_time < per:
-                    if data['count'] >= limit:
-                        return jsonify({'error': 'Rate limit exceeded'}), 429
-                    else:
-                        data['count'] += 1
-                else:
-                    data['timestamp'] = current_time
-                    data['count'] = 1
-
-            return f(*args, **kwargs)
-
-        wrapper.access_data = {}
-        return wrapper
-
-    return decorator
-
-
-# Apply rate limit to encode and decode endpoints (2 requests per second)
-@app.route('/encode', methods=['POST'])
-@rate_limit(limit=2, per=1)
-def encode_rate_limited():
-    return encode()
-
-
-@app.route('/decode/<string:short_url>', methods=['GET'])
-@rate_limit(limit=2, per=1)
-def decode_rate_limited(short_url):
-    return decode(short_url)
-
+    return jsonify(response_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

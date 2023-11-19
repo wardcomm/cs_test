@@ -11,7 +11,7 @@ app = Flask(__name__)
 url_mapping = {}
 
   # Create function encoding using hash library
-def encode_url(url)):
+def encode_url(url):
     hash_object = hashlib.md5(url.encode())
     return hash_object.hexdigest()[:6]
  
@@ -33,7 +33,7 @@ def encode():
 
 # Create function for decoding request module
 @app.route('/decode/<string:short_url>', methods=['GET'])
-def decode(short_url,):
+def decode(short_url):
     original_url = url_mapping.get(short_url)
 
     if original_url is None:
@@ -42,9 +42,9 @@ def decode(short_url,):
     return jsonify({'original_url': original_url}), 200
 
 # Rate limiting decorator
-def rate_limit(limit, per,):
+def rate_limit(limit, per):
     def decorator(f):
-        def wrapper(*args):
+        def wrapper(*args, **kwargs):
             identifier = request.remote_addr
             current_time = time.time()
 
@@ -63,7 +63,7 @@ def rate_limit(limit, per,):
                     data['timestamp'] = current_time
                     data['count'] = 1
 
-            return f(*args)
+            return f(*args, **kwargs)
 
         wrapper.access_data = {}
         return wrapper

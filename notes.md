@@ -1,6 +1,7 @@
 ## Good site for Markdown sytax
 # https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
+
 # https://pypi.org/project/Flask/
 
 # https://www.askpython.com/python-modules/python-hashlib-module
@@ -98,5 +99,8 @@ openhabian@openhabian:~ $ sudo curl -v http://127.0.0.1:5000/api/user
 <
 {"age":51,"city":"Clover","name":"Chad Ward"}
 * Closing connection 0
+## Good site for Hashlib module
+https://www.askpython.com/python-modules/python-hashlib-module  
+
 
 

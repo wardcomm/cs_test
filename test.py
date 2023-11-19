@@ -13,7 +13,8 @@ url_mapping = {}
 data = {
     'name': 'Chad Ward',
     'age': 51,
-    'city': 'Clover'
+    'city': 'Clover',
+    'state': 'SC',
 }
 
 # Route to retrieve the data

@@ -11,13 +11,13 @@ app = Flask(__name__)
 url_mapping = {}
 
   # Create function encoding using hash library
-def encode_url(url):
+def encode_url(url), **kwargs):
     hash_object = hashlib.md5(url.encode())
     return hash_object.hexdigest()[:6]
  
  # Create function for encode request module
 @app.route('/encode', methods=['POST'])
-def encode():
+def encode(, **kwargs):
     data = request.get_json()
 
     if 'url' not in data:
@@ -33,7 +33,7 @@ def encode():
 
 # Create function for decoding request module
 @app.route('/decode/<string:short_url>', methods=['GET'])
-def decode(short_url):
+def decode(short_url, **kwargs):
     original_url = url_mapping.get(short_url)
 
     if original_url is None:
@@ -42,7 +42,7 @@ def decode(short_url):
     return jsonify({'original_url': original_url}), 200
 
 # Rate limiting decorator
-def rate_limit(limit, per):
+def rate_limit(limit, per, **kwargs):
     def decorator(f):
         def wrapper(*args, **kwargs):
             identifier = request.remote_addr
@@ -73,13 +73,13 @@ def rate_limit(limit, per):
 # Apply rate limit to encode  endpoints at two requests per second
 @app.route('/encode', methods=['POST'])
 @rate_limit(limit=2, per=1)
-def encode_rate_limited():
+def encode_rate_limited(, **kwargs):
     return encode()
 
 # Apply rate limit to decode endpoints at two requests per second
 @app.route('/decode/<string:short_url>', methods=['GET'])
 @rate_limit(limit=2, per=1)
-def decode_rate_limited(short_url):
+def decode_rate_limited(short_url, **kwargs):
     return decode(short_url)
 
 

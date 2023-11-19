@@ -70,3 +70,14 @@ openhabian@openhabian:~ $ sudo curl -v http://localhost:5000
 * Closing connection 0
 
 
+openhabian@openhabian:~/REPO/cs_test $ export FLASK_APP=test
+openhabian@openhabian:~/REPO/cs_test $ flask run
+ * Serving Flask app 'test'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+127.0.0.1 - - [18/Nov/2023 22:29:17] "GET / HTTP/1.1" 404 -
+
+
+

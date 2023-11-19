@@ -28,7 +28,7 @@ def encode():
 
     response_data = {
         'original_url': original_url,
-        'short_url': f'http://example.com/{short_url}'  # Replace with your domain
+        'short_url': f'http://localhost/{short_url}'  # Replace with your domain
     }
 
     return jsonify(response_data)
@@ -42,7 +42,7 @@ def decode(short_url):
         return jsonify({'error': 'Short URL not found'}), 404
 
     response_data = {
-        'short_url': f'http://example.com/{short_url}',  # Replace with your domain
+        'short_url': f'http://localhost/{short_url}',  # Replace with your domain
         'original_url': original_url
     }
 

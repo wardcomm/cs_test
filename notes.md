@@ -79,5 +79,24 @@ WARNING: This is a development server. Do not use it in a production deployment.
 Press CTRL+C to quit
 127.0.0.1 - - [18/Nov/2023 22:29:17] "GET / HTTP/1.1" 404 -
 
+got responce from api test
+openhabian@openhabian:~ $ sudo curl -v http://127.0.0.1:5000/api/user
+*   Trying 127.0.0.1:5000...
+* Connected to 127.0.0.1 (127.0.0.1) port 5000 (#0)
+> GET /api/user HTTP/1.1
+> Host: 127.0.0.1:5000
+> User-Agent: curl/7.74.0
+> Accept: */*
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Server: Werkzeug/3.0.1 Python/3.9.2
+< Date: Sun, 19 Nov 2023 04:18:38 GMT
+< Content-Type: application/json
+< Content-Length: 46
+< Connection: close
+<
+{"age":51,"city":"Clover","name":"Chad Ward"}
+* Closing connection 0
 
 

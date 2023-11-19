@@ -67,13 +67,13 @@ def rate_limit(limit, per):
 
     return decorator
 
-# Apply rate limit to encode and decode endpoints at two requests per second
+# Apply rate limit to encode  endpoints at two requests per second
 @app.route('/encode', methods=['POST'])
 @rate_limit(limit=2, per=1)
 def encode_rate_limited():
     return encode()
 
-
+# Apply rate limit to decode endpoints at two requests per second
 @app.route('/decode/<string:short_url>', methods=['GET'])
 @rate_limit(limit=2, per=1)
 def decode_rate_limited(short_url):

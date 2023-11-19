@@ -17,10 +17,10 @@ data = {
     'city': 'Clover'
 }
 
-# Route to retrieve the data
-@app.route('/api/user', methods=['GET'])
-def get_user():
-    return jsonify(data)
+# # Route to retrieve the data
+# @app.route('/api/user', methods=['GET'])
+# def get_user():
+#     return jsonify(data)
 
   # Create function encoding using hash library
 def encode_url(url):

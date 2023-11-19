@@ -47,6 +47,8 @@ def decode(short_url):
     }
 
     return jsonify(response_data)
-
+print(response_data)
+print(original_url)
+print(short_url)
 if __name__ == '__main__':
     app.run(debug=True)

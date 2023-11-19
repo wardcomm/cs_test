@@ -37,7 +37,7 @@ def encode():
 def decode(short_url):
     # Retrieve the original URL from the in-memory storage
     original_url = url_mapping.get(short_url)
-
+# print(original_url)
     if original_url is None:
         return jsonify({'error': 'Short URL not found'}), 404
 
@@ -48,7 +48,7 @@ def decode(short_url):
 
     return jsonify(response_data)
 # print(response_data)
-print(original_url)
-print(short_url)
+
+# print(short_url)
 if __name__ == '__main__':
     app.run(debug=True)

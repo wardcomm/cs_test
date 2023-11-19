@@ -10,3 +10,5 @@
 # https://expressjs.com/en/guide/routing.html
 
 # https://www.fullstackpython.com/flask-code-examples.html    
+
+# https://realpython.com/defining-your-own-python-function/

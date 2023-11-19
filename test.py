@@ -8,6 +8,19 @@ app = Flask(__name__)
 # A simple in-memory storage for URL encoding/decoding
 url_mapping = {}
 
+testing code
+#  data
+data = {
+    'name': 'Chad Ward',
+    'age': 51,
+    'city': 'Clover'
+}
+
+# Route to retrieve the data
+@app.route('/api/user', methods=['GET'])
+def get_user():
+    return jsonify(data)
+
 def generate_short_url():
     # Generate a random short URL using uppercase letters and digits
     characters = string.ascii_uppercase + string.digits

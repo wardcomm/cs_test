@@ -10,12 +10,12 @@ app = Flask(__name__)
 #Create mapping for in memory object
 url_mapping = {}
 
-#  data
-data = {
-    'name': 'Chad Ward',
-    'age': 51,
-    'city': 'Clover'
-}
+# #  data
+# data = {
+#     'name': 'Chad Ward',
+#     'age': 51,
+#     'city': 'Clover'
+# }
 
 # # Route to retrieve the data
 # @app.route('/api/user', methods=['GET'])

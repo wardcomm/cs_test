@@ -38,3 +38,31 @@ def decode(short_url):
 
     return jsonify({'original_url': original_url}), 200
 
+# Rate limiting decorator
+def rate_limit(limit, per):
+    def decorator(f):
+        def wrapper(*args, **kwargs):
+            identifier = request.remote_addr
+            current_time = time.time()
+
+            if identifier not in wrapper.access_data:
+                wrapper.access_data[identifier] = {'timestamp': current_time, 'count': 1}
+            else:
+                data = wrapper.access_data[identifier]
+                elapsed_time = current_time - data['timestamp']
+
+                if elapsed_time < per:
+                    if data['count'] >= limit:
+                        return jsonify({'error': 'Rate limit exceeded'}), 429
+                    else:
+                        data['count'] += 1
+                else:
+                    data['timestamp'] = current_time
+                    data['count'] = 1
+
+            return f(*args, **kwargs)
+
+        wrapper.access_data = {}
+        return wrapper
+
+    return decorator

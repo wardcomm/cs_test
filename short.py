@@ -8,7 +8,7 @@ app = Flask(__name__)
 url_mapping = {}
 
 # General Variables
-domain = localhost
+# domain = localhost
 
 # Rate limiting variables
 request_count = 0

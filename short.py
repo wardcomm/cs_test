@@ -32,7 +32,7 @@ def decode_url(encoded_url):
     return None
 
 # /encode endpoint to shorten a URL
-@app.route('/encode', methods=['POST'])
+@app.route('/encode', methods=['GET', 'POST'])
 def encode():
     global request_count, last_request_time
     # Rate limiting check
@@ -60,7 +60,7 @@ def encode():
     return jsonify({"short_url": short_url}), 200
 
 # /decode endpoint to retrieve the original URL
-@app.route('/decode/<path:encoded_url>', methods=['GET'])
+@app.route('/decode/<path:encoded_url>', methods=['GET', 'POST'])
 def decode(encoded_url):
     original_url = decode_url(encoded_url)
     if original_url:

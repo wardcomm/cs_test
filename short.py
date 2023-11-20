@@ -7,6 +7,9 @@ app = Flask(__name__)
 # In-memory dictionary to store encoded URLs
 url_mapping = {}
 
+# General Variables
+domain = localhost
+
 # Rate limiting variables
 request_count = 0
 last_request_time = 0
@@ -16,7 +19,7 @@ def encode_url(original_url):
     # Using MD5 hash as a simple encoding algorithm
     hash_object = hashlib.md5(original_url.encode())
     encoded_url = hash_object.hexdigest()[:6]
-    return f'http://someapp/{encoded_url}'
+    return f'localhost/{encoded_url}'
 
 # Function to decode a URL
 def decode_url(encoded_url):

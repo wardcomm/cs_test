@@ -19,7 +19,7 @@ def encode_url(original_url):
     # Using MD5 hash as a simple encoding algorithm
     hash_object = hashlib.md5(original_url.encode())
     encoded_url = hash_object.hexdigest()[:6]
-    return f'localhost/{encoded_url}'
+    return f'http://localhost/{encoded_url}'
 
 # Function to decode a URL
 def decode_url(encoded_url):
